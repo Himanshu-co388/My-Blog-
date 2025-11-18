@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to Himanshu's Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4FD1C5 0%, #4361EE 50%, #7209B7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+      height: 100vh;
+    }
+    .center-wrap {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      padding: 2.5rem 2rem 2rem 2rem;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      opacity: 1;
+      max-width: 420px;
+      width: 95vw;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .hidden {
+      opacity: 0;
+      transform: scale(0.96) translateY(20px);
+      pointer-events: none;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    label {
+      font-size: 1.35rem;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      display: block;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(70, 50, 150, 0.18);
+      transition: color 0.3s ease;
+    }
+    input[type='text'] {
+      font: inherit;
+      background: rgba(255, 255, 255, 0.1);
+      border: 0;
+      border-bottom: 2px solid #4361ee;
+      outline: none;
+      color: #22223b;
+      font-size: 1rem;
+      width: 85%;
+      margin: 1rem 0 2rem 0;
+      padding: 0.7rem 1rem;
+      border-radius: 8px 8px 2px 2px;
+      backdrop-filter: blur(10px);
+      transition: border-bottom-color 0.3s;
+    }
+    input[type='text']:focus {
+      border-bottom-color: #7209b7;
+    }
+    button {
+      background: linear-gradient(90deg, #4fd1c5, #4361ee, #7209b7);
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.85rem 2.4rem;
+      border-radius: 16px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 24px 2px rgba(34, 34, 59, 0.1);
+      transition: all 0.3s cubic-bezier(0.38, 0.67, 0.7, 1.02);
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #7209b7, #4361ee, #4fd1c5);
+      box-shadow: 0 8px 30px 2px rgba(114, 9, 183, 0.14);
+      transform: translateY(-2px);
+    }
+    .welcome-box {
+      display: none;
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .welcome-box.active {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+      animation: fadeInScale 0.9s cubic-bezier(0.64, 0.09, 0.08, 1);
+    }
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.88);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      display: block;
+    }
+    .emojis {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    .welcome-msg {
+      color: #fff;
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 1rem 1.1rem;
+      border-radius: 1.2em;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 16px rgba(70, 50, 120, 0.13);
+      transition: background 0.5s;
+      text-shadow: 0 2px 12px rgba(34, 34, 59, 0.07);
+      letter-spacing: 1px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .blog-link {
+      font-size: 1.1rem;
+      color: #4fd1c5;
+      margin: 0.9em 0.2em;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 0.6em 1.1em;
+      border-radius: 0.9em;
+      display: inline-block;
+      text-decoration: none;
+      transition: background 0.3s;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .timer {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 1.2em;
+      letter-spacing: 0.08em;
+      padding: 0.21em 1.15em;
+      background: rgba(114, 9, 183, 0.12);
+      border-radius: 1.6em;
+      display: inline-block;
+      box-shadow: 0 2px 14px 2px rgba(103, 209, 197, 0.07);
+      animation: pulse 0.8s infinite alternate;
+    }
+    @keyframes pulse {
+      from {
+        box-shadow: 0 2px 13px 1px rgba(205, 14, 220, 0.15);
+      }
+      to {
+        box-shadow: 0 5px 23px 7px rgba(64, 169, 248, 0.22);
+      }
+    }
+    @media (max-width: 620px) {
+      .container {
+        padding: 1.5rem 0.8rem;
+      }
+      .welcome-msg {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti-canvas" id="confetti"></canvas>
+  <div class="center-wrap">
+    <div class="container" id="ask-name">
+      <form id="nameForm" autocomplete="off" spellcheck="false">
+        <label for="userName">👥 Enter your name to continue:</label>
+        <input
+          type="text"
+          id="userName"
+          name="userName"
+          placeholder="Your Name..."
+          maxlength="20"
+          required
+          autocomplete="off"
+        />
+        <br />
+        <button type="submit">✨ Show Welcome! ✨</button>
+      </form>
+    </div>
+    <div class="container welcome-box" id="welcomeBox">
+      <div class="emojis">🎉✨ 💡 📚 📝 🎊</div>
+      <div class="welcome-msg" id="welcomeMsg"><!-- Welcome message inserted here --></div>
+      <div class="blog-link"><span>🎈 Waiting to redirect...</span></div>
+      <div class="timer" id="timer">4s</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const nameForm = document.getElementById('nameForm');
+    const askNameDiv = document.getElementById('ask-name');
+    const welcomeBox = document.getElementById('welcomeBox');
+    const welcomeMsg = document.getElementById('welcomeMsg');
+    const timer = document.getElementById('timer');
+    const blogUrl =
+      'https://whispersoftherain1103.blogspot.com/2025/11/whispers-of-rain.html';
+
+    nameForm.onsubmit = function (e) {
+      e.preventDefault();
+      const nameVal = document.getElementById('userName').value.trim();
+      if (nameVal !== '') {
+        runWelcome(nameVal);
+      }
+    };
+
+    function runWelcome(name) {
+      askNameDiv.classList.add('hidden');
+      setTimeout(() => (askNameDiv.style.display = 'none'), 800);
+
+      // Special message for Himanshu (case-insensitive)
+      if (name.toLowerCase() === 'prashika') {
+        welcomeMsg.textContent = `Welcome ${name}! 🎉 You are among the special one ! ✨ Welcome to Himanshu's blog!`;
+      } else {
+        welcomeMsg.textContent = `Welcome ${name}! 🎉 Welcome to Himanshu's blog!`;
+      }
+
+      welcomeBox.classList.add('active');
+      welcomeBox.style.display = 'block';
+      confetti({
+        particleCount: 150,
+        spread: 180,
+        origin: { y: 0.6 },
+        colors: ['#4FD1C5', '#4361EE', '#7209B7', '#fbf8cc', '#fae588', '#ffbe0b', '#ffd6e0'],
+      });
+      startTimer(4, () => {
+        window.location.href = blogUrl;
+      });
+    }
+
+    function startTimer(s, callback) {
+      let t = s;
+      timer.textContent = `${t}s`;
+      let interval = setInterval(() => {
+        t--;
+        timer.textContent = `${t}s`;
+        if (t <= 0) {
+          clearInterval(interval);
+          callback();
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
