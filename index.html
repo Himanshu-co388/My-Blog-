@@ -209,6 +209,20 @@
         box-shadow: 0 5px 23px 7px rgba(64, 169, 248, 0.22);
       }
     }
+    /* Footer copyright style */
+    .footer-copyright {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.05em;
+      font-weight: 500;
+      user-select: none;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+    .footer-copyright:hover {
+      color: #ffbe0b;
+    }
     @media (max-width: 620px) {
       .container {
         padding: 1.5rem 0.8rem;
@@ -240,9 +254,12 @@
     </div>
     <div class="container welcome-box" id="welcomeBox">
       <div class="emojis">🎉✨ 💡 📚 📝 🎊</div>
-      <div class="welcome-msg" id="welcomeMsg"><!-- Welcome message inserted here --></div>
+      <div class="welcome-msg" id="welcomeMsg"></div>
       <div class="blog-link"><span>🎈 Waiting to redirect...</span></div>
       <div class="timer" id="timer">4s</div>
+      <div class="footer-copyright">
+        &copy; 2025 Developed with 💻 and ☕
+      </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -269,7 +286,7 @@
 
       // Special message for Himanshu (case-insensitive)
       if (name.toLowerCase() === 'prashika') {
-        welcomeMsg.textContent = `Welcome ${name}! 🎉 You are among the special one ! ✨ Welcome to Himanshu's blog!`;
+        welcomeMsg.textContent = `Welcome ${name}! 🎉 You are the special guy! ✨ Welcome to Himanshu's blog!`;
       } else {
         welcomeMsg.textContent = `Welcome ${name}! 🎉 Welcome to Himanshu's blog!`;
       }
