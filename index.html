@@ -1,244 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Welcome to Himanshu's Blog</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      min-height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #4FD1C5 0%, #4361EE 50%, #7209B7 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: background 1.5s cubic-bezier(0.23, 1, 0.32, 1);
-      height: 100vh;
-    }
-    .center-wrap {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<meta charset="UTF-8" />
+<title>Welcome to Himanshu's Blog</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin:0; padding:0; height:100%;
+    background:#121212;
+    color:#e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .center-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .container {
+    background: rgba(30,30,30,0.95);
+    border-radius: 20px;
+    border: 1.5px solid #444;
+    box-shadow:
+      0 8px 24px rgba(0,0,0,0.9),
+      0 0 15px rgba(255 255 255 / 0.03);
+    max-width: 420px;
+    width: 100%;
+    padding: 2.5rem 2.2rem 2rem;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+  }
+  .hidden {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+    pointer-events: none;
+    transition: all 0.6s ease-in-out;
+  }
+  label {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.9px;
+    margin-bottom: 1rem;
+    display: block;
+    color: #ccc;
+    user-select: none;
+  }
+  input[type='text'] {
+    font: inherit;
+    background: #262626;
+    border: none;
+    border-bottom: 2px solid #666;
+    outline: none;
+    color: #eee;
+    font-size: 1.05rem;
+    width: 85%;
+    margin: 1rem 0 2rem 0;
+    padding: 0.7rem 1rem;
+    border-radius: 0;
+    transition: border-bottom-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: none;
+  }
+  input[type='text']::placeholder {
+    color: #999;
+    font-weight: 300;
+  }
+  input[type='text']:focus {
+    border-bottom-color: #fff;
+    box-shadow: 0 2px 8px rgb(255 255 255 / 0.15);
+    background: #2c2c2c;
+  }
+  button {
+    background: linear-gradient(90deg, #555, #222);
+    color: #eee;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.85rem 2.4rem;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 14px 2px rgba(255 255 255 / 0.12);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 4px #bbb9);
+  }
+  button:hover,
+  button:focus {
+    background: linear-gradient(90deg, #777, #333);
+    box-shadow: 0 6px 20px 3px rgba(255 255 255 / 0.22);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .welcome-box {
+    display: none;
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s cubic-bezier(.64,.09,.08,1);
+  }
+  .welcome-box.active {
+    display: block;
+    animation: fadeScaleIn 0.8s cubic-bezier(.64,.09,.08,1) forwards;
+  }
+  @keyframes fadeScaleIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1);}
+  }
+  .confetti-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    display: block;
+  }
+  .emojis {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    display: flex;
+    justify-content: center;
+    gap: 0.6em;
+    flex-wrap: wrap;
+    animation: floatScale 4s ease-in-out infinite;
+    user-select: none;
+    color: #ccc;
+    text-shadow: 0 0 5px #999;
+  }
+  @keyframes floatScale {
+    0%, 100% { transform: translateY(0) scale(1);}
+    50% { transform: translateY(-8px) scale(1.05);}
+  }
+  .welcome-msg {
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: rgba(255 255 255 / 0.06);
+    padding: 1.1rem 1.3rem;
+    border-radius: 1.5em;
+    margin-bottom: 15px;
+    box-shadow: 0 0 6px 2px rgba(255 255 255 / 0.08);
+    color: #eee;
+    letter-spacing: 1.1px;
+    animation: fadeUp 0.7s ease-out forwards;
+    text-shadow: none;
+  }
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px);}
+    100% { opacity: 1; transform: translateY(0);}
+  }
+  .blog-link {
+    font-size: 1.1rem;
+    color: #bbb;
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    background: rgba(255 255 255 / 0.05);
+    padding: 0.65em 1.25em;
+    border-radius: 1.1em;
+    display: inline-block;
+    user-select: none;
+    cursor: default;
+    box-shadow: inset 0 -3px 8px rgba(255 255 255 / 0.04);
+  }
+  .timer {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #eee;
+    margin-top: 1.5em;
+    letter-spacing: 0.1em;
+    padding: 0.28em 1.35em;
+    background: rgba(255 255 255 / 0.04);
+    border-radius: 2em;
+    display: inline-block;
+    box-shadow: inset 0 0 12px rgba(255 255 255 / 0.07);
+    animation: pulse 1.2s infinite alternate ease-in-out;
+    user-select: none;
+  }
+  @keyframes pulse {
+    0% { box-shadow: inset 0 0 8px rgba(255 255 255 / 0.05);}
+    100% { box-shadow: inset 0 0 18px rgba(255 255 255 / 0.1);}
+  }
+  .footer-copyright {
+    margin-top: 2.5rem;
+    font-size: 1rem;
+    color: #888;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    user-select: none;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+  .footer-copyright:hover {
+    color: #aaa;
+    cursor: default;
+  }
+  @media (max-width: 620px) {
     .container {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 24px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      padding: 2.5rem 2rem 2rem 2rem;
-      text-align: center;
-      backdrop-filter: blur(20px);
-      opacity: 1;
-      max-width: 420px;
-      width: 95vw;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .hidden {
-      opacity: 0;
-      transform: scale(0.96) translateY(20px);
-      pointer-events: none;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    label {
-      font-size: 1.35rem;
-      color: #fff;
-      letter-spacing: 1px;
-      margin-bottom: 1rem;
-      display: block;
-      font-weight: 600;
-      text-shadow: 0 2px 8px rgba(70, 50, 150, 0.18);
-      transition: color 0.3s ease;
-    }
-    input[type='text'] {
-      font: inherit;
-      background: rgba(255, 255, 255, 0.1);
-      border: 0;
-      border-bottom: 2px solid #4361ee;
-      outline: none;
-      color: #22223b;
-      font-size: 1rem;
-      width: 85%;
-      margin: 1rem 0 2rem 0;
-      padding: 0.7rem 1rem;
-      border-radius: 8px 8px 2px 2px;
-      backdrop-filter: blur(10px);
-      transition: border-bottom-color 0.3s;
-    }
-    input[type='text']:focus {
-      border-bottom-color: #7209b7;
-    }
-    button {
-      background: linear-gradient(90deg, #4fd1c5, #4361ee, #7209b7);
-      color: #fff;
-      border: none;
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 0.85rem 2.4rem;
-      border-radius: 16px;
-      cursor: pointer;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 24px 2px rgba(34, 34, 59, 0.1);
-      transition: all 0.3s cubic-bezier(0.38, 0.67, 0.7, 1.02);
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    button:hover {
-      background: linear-gradient(90deg, #7209b7, #4361ee, #4fd1c5);
-      box-shadow: 0 8px 30px 2px rgba(114, 9, 183, 0.14);
-      transform: translateY(-2px);
-    }
-    .welcome-box {
-      display: none;
-      position: relative;
-      z-index: 10;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .welcome-box.active {
-      display: block;
-      opacity: 1;
-      transform: scale(1);
-      animation: fadeInScale 0.9s cubic-bezier(0.64, 0.09, 0.08, 1);
-    }
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.88);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    .confetti-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-      display: block;
-    }
-    .emojis {
-      font-size: 2rem;
-      margin-bottom: 18px;
-      letter-spacing: 0.2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5em;
-      flex-wrap: wrap;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      padding: 1.8rem 1.2rem;
     }
     .welcome-msg {
-      color: #fff;
-      font-size: 1.7rem;
-      font-weight: 700;
-      background: rgba(255, 255, 255, 0.12);
-      padding: 1rem 1.1rem;
-      border-radius: 1.2em;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 16px rgba(70, 50, 120, 0.13);
-      transition: background 0.5s;
-      text-shadow: 0 2px 12px rgba(34, 34, 59, 0.07);
-      letter-spacing: 1px;
-      animation: fadeInUp 0.8s ease-out;
+      font-size: 1.35rem;
     }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .emojis {
+      font-size: 1.6rem;
+      letter-spacing: 0.15em;
+      gap: 0.35em;
     }
-    .blog-link {
-      font-size: 1.1rem;
-      color: #4fd1c5;
-      margin: 0.9em 0.2em;
-      font-weight: 600;
-      background: rgba(0, 0, 0, 0.03);
-      padding: 0.6em 1.1em;
-      border-radius: 0.9em;
-      display: inline-block;
-      text-decoration: none;
-      transition: background 0.3s;
-      border: none;
-      outline: none;
-      cursor: pointer;
+    button {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
     }
-    .timer {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 1.2em;
-      letter-spacing: 0.08em;
-      padding: 0.21em 1.15em;
-      background: rgba(114, 9, 183, 0.12);
-      border-radius: 1.6em;
-      display: inline-block;
-      box-shadow: 0 2px 14px 2px rgba(103, 209, 197, 0.07);
-      animation: pulse 0.8s infinite alternate;
-    }
-    @keyframes pulse {
-      from {
-        box-shadow: 0 2px 13px 1px rgba(205, 14, 220, 0.15);
-      }
-      to {
-        box-shadow: 0 5px 23px 7px rgba(64, 169, 248, 0.22);
-      }
-    }
-    /* Footer copyright style */
-    .footer-copyright {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.05em;
-      font-weight: 500;
-      user-select: none;
-      text-align: center;
-      transition: color 0.3s ease;
-    }
-    .footer-copyright:hover {
-      color: #ffbe0b;
-    }
-    @media (max-width: 620px) {
-      .container {
-        padding: 1.5rem 0.8rem;
-      }
-      .welcome-msg {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <canvas class="confetti-canvas" id="confetti"></canvas>
   <div class="center-wrap">
     <div class="container" id="ask-name">
       <form id="nameForm" autocomplete="off" spellcheck="false">
-        <label for="userName">👥 Enter your name to continue:</label>
+        <label for="userName"> Enter your name to continue : ) </label>
         <input
           type="text"
           id="userName"
@@ -249,16 +238,16 @@
           autocomplete="off"
         />
         <br />
-        <button type="submit">✨ Show Welcome! ✨</button>
+        <button type="submit">✨ Proceed ✨</button>
       </form>
     </div>
     <div class="container welcome-box" id="welcomeBox">
-      <div class="emojis">🎉✨ 💡 📚 📝 🎊</div>
+      <div class="emojis">🗿 🗿</div>
       <div class="welcome-msg" id="welcomeMsg"></div>
-      <div class="blog-link"><span>🎈 Waiting to redirect...</span></div>
+      <div class="blog-link"><span> 👀👀 Waiting to redirect...</span></div>
       <div class="timer" id="timer">4s</div>
       <div class="footer-copyright">
-        &copy; 2025 Developed with 💻 and ☕
+        &copy; 2025__ Himanshu Developed with 💻 and ☕
       </div>
     </div>
   </div>
@@ -269,45 +258,46 @@
     const welcomeBox = document.getElementById('welcomeBox');
     const welcomeMsg = document.getElementById('welcomeMsg');
     const timer = document.getElementById('timer');
-    const blogUrl =
-      'https://whispersoftherain1103.blogspot.com/2025/11/whispers-of-rain.html';
+    const blogUrl = 'https://whispersoftherain1103.blogspot.com/2025/11/whispers-of-rain.html';
 
-    nameForm.onsubmit = function (e) {
+    nameForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const nameVal = document.getElementById('userName').value.trim();
       if (nameVal !== '') {
         runWelcome(nameVal);
       }
-    };
+    });
 
     function runWelcome(name) {
       askNameDiv.classList.add('hidden');
-      setTimeout(() => (askNameDiv.style.display = 'none'), 800);
+      setTimeout(() => (askNameDiv.style.display = 'none'), 600);
 
-      // Special message for Himanshu (case-insensitive)
       if (name.toLowerCase() === 'prashika') {
-        welcomeMsg.textContent = `Welcome ${name}! 🎉 You are the special guy! ✨ Welcome to Himanshu's blog!`;
+        welcomeMsg.textContent = `Welcome ${name}! You are among the special one! ✨ Welcome to my blog!`;
+      } else if (name.toLowerCase() === 'vandana') {
+        welcomeMsg.textContent = `Hello Teacher! 👩‍🏫`;
       } else {
-        welcomeMsg.textContent = `Welcome ${name}! 🎉 Welcome to Himanshu's blog!`;
+        welcomeMsg.textContent = `Hey ${name}! 🎉 Welcome to Himanshu's blog!`;
       }
 
       welcomeBox.classList.add('active');
       welcomeBox.style.display = 'block';
+
       confetti({
-        particleCount: 150,
+        particleCount: 140,
         spread: 180,
         origin: { y: 0.6 },
-        colors: ['#4FD1C5', '#4361EE', '#7209B7', '#fbf8cc', '#fae588', '#ffbe0b', '#ffd6e0'],
+        colors: ['#ddd', '#bbb', '#999', '#ccc', '#eee'],
       });
       startTimer(4, () => {
         window.location.href = blogUrl;
       });
     }
 
-    function startTimer(s, callback) {
-      let t = s;
+    function startTimer(seconds, callback) {
+      let t = seconds;
       timer.textContent = `${t}s`;
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         t--;
         timer.textContent = `${t}s`;
         if (t <= 0) {
