@@ -223,89 +223,91 @@
 </style>
 </head>
 <body>
-  <canvas class="confetti-canvas" id="confetti"></canvas>
-  <div class="center-wrap">
-    <div class="container" id="ask-name">
-      <form id="nameForm" autocomplete="off" spellcheck="false">
-        <label for="userName"> Enter your name to continue :) </label>
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          placeholder="Your Name..."
-          maxlength="20"
-          required
-          autocomplete="off"
-        />
-        <br />
-        <button type="submit"> Proceed 😎</button>
-      </form>
-    </div>
-    <div class="container welcome-box" id="welcomeBox">
-      <div class="emojis">🗿 🗿</div>
-      <div class="welcome-msg" id="welcomeMsg"></div>
-      <div class="blog-link"><span> 👀👀 please wait while redirecting ...</span></div>
-      <div class="timer" id="timer">4s</div>
-      <div class="footer-copyright">
-        &copy; 2025__ Himanshu Developed with 💻 and ☕
-      </div>
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<div class="center-wrap">
+  <div class="container" id="ask-name">
+    <form id="nameForm" autocomplete="off" spellcheck="false">
+      <label for="userName"> Enter your name to continue :) </label>
+      <input
+        type="text"
+        id="userName"
+        name="userName"
+        placeholder="Your Name..."
+        maxlength="20"
+        required
+        autocomplete="off"
+      />
+      <br />
+      <button type="submit"> Proceed 😎</button>
+    </form>
+  </div>
+  <div class="container welcome-box" id="welcomeBox">
+    <div class="emojis">🗿 🗿</div>
+    <div class="welcome-msg" id="welcomeMsg"></div>
+    <div class="blog-link"><span> 👀👀 please wait while redirecting ...</span></div>
+    <div class="timer" id="timer">4s</div>
+    <div class="footer-copyright">
+      &copy; 2025__ Himanshu Developed with 💻 and ☕
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    const nameForm = document.getElementById('nameForm');
-    const askNameDiv = document.getElementById('ask-name');
-    const welcomeBox = document.getElementById('welcomeBox');
-    const welcomeMsg = document.getElementById('welcomeMsg');
-    const timer = document.getElementById('timer');
-    const blogUrl = 'https://whispersoftherain1103.blogspot.com/2025/11/whispers-of-rain.html';
+</div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  const nameForm = document.getElementById('nameForm');
+  const askNameDiv = document.getElementById('ask-name');
+  const welcomeBox = document.getElementById('welcomeBox');
+  const welcomeMsg = document.getElementById('welcomeMsg');
+  const timer = document.getElementById('timer');
+  const blogUrl = 'https://whispersoftherain1103.blogspot.com/2025/11/whispers-of-rain.html';
 
-    nameForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const nameVal = document.getElementById('userName').value.trim();
-      if (nameVal !== '') {
-        runWelcome(nameVal);
-      }
+  nameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameVal = document.getElementById('userName').value.trim();
+    if (nameVal !== '') {
+      runWelcome(nameVal);
+    }
+  });
+
+  function runWelcome(name) {
+    askNameDiv.classList.add('hidden');
+    setTimeout(() => (askNameDiv.style.display = 'none'), 600);
+
+    if (name.toLowerCase() === 'prashika') {
+      welcomeMsg.textContent = `Welcome ${name}! You are among the special one! ✨ Welcome to my blog!`;
+    } else if (name.toLowerCase() === 'vandana') {
+      welcomeMsg.textContent = `Hello Teacher! 👩‍🏫`;
+    } else if (name.toLowerCase() === 'prashika vasani') {
+      welcomeMsg.textContent = `Welcome ${name}! You are among the special one! ✨ Welcome to my blog!`;
+    } else {
+      welcomeMsg.textContent = `Hey ${name}! 🎉 Welcome to Himanshu's blog!`;
+    }
+
+    welcomeBox.classList.add('active');
+    welcomeBox.style.display = 'block';
+
+    confetti({
+      particleCount: 140,
+      spread: 180,
+      origin: { y: 0.6 },
+      colors: ['#ddd', '#bbb', '#999', '#ccc', '#eee'],
     });
+    startTimer(4, () => {
+      window.location.href = blogUrl;
+    });
+  }
 
-    function runWelcome(name) {
-      askNameDiv.classList.add('hidden');
-      setTimeout(() => (askNameDiv.style.display = 'none'), 600);
-
-      if (name.toLowerCase() === 'prashika') {
-        welcomeMsg.textContent = `Welcome ${name}! You are among the special one! ✨ Welcome to my blog!`;
-      } else if (name.toLowerCase() === 'vandana') {
-        welcomeMsg.textContent = `Hello Teacher! 👩‍🏫`;
-      } else {
-        welcomeMsg.textContent = `Hey ${name}! 🎉 Welcome to Himanshu's blog!`;
-      }
-
-      welcomeBox.classList.add('active');
-      welcomeBox.style.display = 'block';
-
-      confetti({
-        particleCount: 140,
-        spread: 180,
-        origin: { y: 0.6 },
-        colors: ['#ddd', '#bbb', '#999', '#ccc', '#eee'],
-      });
-      startTimer(4, () => {
-        window.location.href = blogUrl;
-      });
-    }
-
-    function startTimer(seconds, callback) {
-      let t = seconds;
+  function startTimer(seconds, callback) {
+    let t = seconds;
+    timer.textContent = `${t}s`;
+    const interval = setInterval(() => {
+      t--;
       timer.textContent = `${t}s`;
-      const interval = setInterval(() => {
-        t--;
-        timer.textContent = `${t}s`;
-        if (t <= 0) {
-          clearInterval(interval);
-          callback();
-        }
-      }, 1000);
-    }
-  </script>
+      if (t <= 0) {
+        clearInterval(interval);
+        callback();
+      }
+    }, 1000);
+  }
+</script>
 </body>
 </html>
